@@ -1,0 +1,65 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demodanei.mapper.OrderMapper">
+    <!-- 插入订单数据 -->
+    <!-- Integer insertOrder(Order order) -->
+    <insert id="insertOrder">
+        INSERT INTO t_order (
+            uid, name,
+            phone, address,
+            status, price,
+            order_time, pay_time,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+                     #{uid}, #{name},
+                     #{phone}, #{address},
+                     #{status}, #{price},
+                     #{orderTime}, #{payTime},
+                     #{createdUser}, #{createdTime},
+                     #{modifiedUser}, #{modifiedTime}
+                 )
+    </insert>
+
+    <!-- 插入订单商品数据 -->
+    <!-- Integer insertOrderItem(OrderItem orderItem) -->
+    <insert id="insertOrderItem">
+        INSERT INTO t_order_item (
+            oid, gid,
+            title, image,
+            price, num,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+                     #{oid}, #{gid},
+                     #{title}, #{image},
+                     #{price}, #{num},
+                     #{createdUser}, #{createdTime},
+                     #{modifiedUser}, #{modifiedTime}
+                 )
+    </insert>
+
+    <!--	获取订单-->
+    <select id="getOrders" resultType="com.example.demodanei.entity.Order">
+        SELECT oid, uid, name,
+               phone, address,
+               status, price,
+               order_time, pay_time,
+               created_user, created_time,
+               modified_user, modified_time
+        FROM t_order
+        WHERE uid=#{uid}
+    </select>
+
+    <select id="getItem" resultType="com.example.demodanei.entity.OrderItem">
+        SELECT oid, gid,
+               title, image,
+               price, num,
+               created_user, created_time,
+               modified_user, modified_time
+        FROM t_order_item
+        WHERE oid=#{oid}
+    </select>
+</mapper>
+

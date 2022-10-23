@@ -1,0 +1,86 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demodanei.mapper.UserMapper">
+    <!-- 插入用户数据 -->
+    <!-- Integer insert(User user) -->
+    <insert id="insert">
+        INSERT INTO `t_user` (
+            username, password,
+            salt, gender,
+            phone, email,
+            avatar, is_delete,
+            created_user, created_time,
+            modified_user, modified_time
+        ) VALUES (
+            #{username}, #{password},
+            #{salt}, #{gender},
+            #{phone}, #{email},
+            #{avatar}, #{isDelete},
+            #{createdUser}, #{createdTime},
+            #{modifiedUser}, #{modifiedTime}
+        )
+    </insert>
+    <update id="updatePassword">
+        UPDATE
+            `t_user`
+        SET
+            password=#{password},
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        WHERE
+            uid=#{uid}
+
+    </update>
+
+    <!-- 根据用户名查询用户数据 -->
+    <!-- User findByUsername(String username) -->
+    <select id="findByUsername" resultType="com.example.demodanei.entity.User">
+        SELECT 
+            uid, username,password,
+            salt, 
+            is_delete AS isDelete
+        FROM 
+            `t_user`
+        WHERE 
+            username=#{username}
+    </select>
+    <update id="updateInfo">
+        UPDATE
+            t_user
+        SET
+            phone=#{phone},email=#{email},
+            gender=#{gender},
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        WHERE
+            uid=#{uid}
+    </update>
+    <update id="updateAvatar">
+        UPDATE
+                t_user
+        SET
+                avatar=#{avatar},modified_user=#{modifiedUser},
+                modified_time=#{modifiedTime}
+        WHERE  uid=#{uid}
+
+    </update>
+    <select id="findByUid"
+            resultType="com.example.demodanei.entity.User">
+        SELECT
+            username, phone,
+            email, gender,
+            password, salt,
+            is_delete AS isDelete
+        FROM
+            t_user
+        WHERE
+            uid=#{uid}
+    </select>
+
+
+<!--    <update id="updateAvatar">-->
+
+<!--    </update>-->
+
+</mapper>
